@@ -43,5 +43,7 @@ public static class Arrays
         data.Clear();
         data.AddRange(endSlice);
         data.AddRange(startSlice);
+
+        // AppDomainUnloadedException 
     }
 }
