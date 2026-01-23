@@ -34,30 +34,29 @@ public class TakingTurnsQueue
     public Person GetNextPerson()
     {
         if (_people.IsEmpty())
-        {
+        
             throw new InvalidOperationException("No one in the queue.");
-        }
-
-        Person person = _people.Dequeue();
-
-        // Infinite turns (0 or less): always re-enqueue, never modify Turns
-        if (person.Turns <= 0)
-        {
-            _people.Enqueue(person);
-        }
-        else
-        {
-            // Finite turns: decrement first
-            person.Turns--;
-
-            // Re-enqueue only if turns remain
-            if (person.Turns > 0)
+        
+        var person = _people.Dequeue();
+        
+            
+            if (person.Turns <= 0)
             {
                 _people.Enqueue(person);
             }
-        }
+        else
+        {
+            person.Turns--;
+            if (person.Turns > 0)
+                _people.Enqueue(person);
+        }    
 
         return person;
+        
     }
 
+    public override string ToString()
+    {
+        return _people.ToString();
+    }
 }
